@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Town Shock Simulator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Newsreader:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="backdrop"></div>
+  <main class="shell">
+    <header class="hero panel">
+      <div>
+        <p class="eyebrow">AI NPC Society Simulator</p>
+        <h1>Small Town Shock Simulator</h1>
+        <p class="lede">Create a town, introduce a shock, and watch the social graph, economy, and politics react day by day.</p>
+      </div>
+      <div class="hero-controls">
+        <label>
+          Town name
+          <input id="townName" type="text" value="Hollowbrook" />
+        </label>
+        <label>
+          Population
+          <input id="population" type="number" min="12" max="120" step="1" value="25" />
+        </label>
+        <label>
+          Starting shock
+          <select id="crisisType">
+            <option value="bakery">Bakery closes</option>
+            <option value="shortage">Food shortage</option>
+            <option value="factory">Factory opens</option>
+            <option value="flood">Flood damages homes</option>
+            <option value="rumour">Rumour starts</option>
+            <option value="election">Election begins</option>
+          </select>
+        </label>
+        <div class="button-row">
+          <button id="generateBtn" class="primary">Generate town</button>
+          <button id="nextDayBtn">Advance 1 day</button>
+          <button id="runBtn">Run 30 days</button>
+        </div>
+      </div>
+    </header>
+
+    <section class="metrics grid-7 panel" id="metrics"></section>
+
+    <section class="layout">
+      <section class="map-card panel">
+        <div class="section-title">
+          <div>
+            <h2>Town Map</h2>
+            <p>Locations are fixed; agents cluster around home, work, and civic spaces.</p>
+          </div>
+          <div class="tiny-kpis" id="tinyKpis"></div>
+        </div>
+        <svg id="map" viewBox="0 0 960 520" role="img" aria-label="Town map"></svg>
+      </section>
+
+      <aside class="right-rail">
+        <section class="panel timeline-card">
+          <div class="section-title compact">
+            <h2>Event Log</h2>
+            <span id="dayLabel">Day 0</span>
+          </div>
+          <div id="eventLog" class="event-log"></div>
+        </section>
+
+        <section class="panel summary-card">
+          <div class="section-title compact">
+            <h2>Town History Report</h2>
+          </div>
+          <div id="summary" class="summary"></div>
+        </section>
+      </aside>
+    </section>
+
+    <section class="panel agents-card">
+      <div class="section-title">
+        <div>
+          <h2>Agents</h2>
+          <p>Click an agent to inspect needs, beliefs, memories, and relationships.</p>
+        </div>
+        <div class="filter-row">
+          <label>
+            Focus
+            <select id="agentFilter">
+              <option value="all">All agents</option>
+              <option value="unemployed">Unemployed</option>
+              <option value="stressed">Stressed</option>
+              <option value="protest">Likely protestors</option>
+            </select>
+          </label>
+        </div>
+      </div>
+      <div id="agentGrid" class="agent-grid"></div>
+    </section>
+  </main>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
