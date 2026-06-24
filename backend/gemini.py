@@ -8,13 +8,13 @@ from typing import Optional
 @dataclass
 class GeminiSettings:
     api_key: Optional[str] = None
-    model: str = "gemini-3.5-flash"
+    model: str = "gemini-2.0-flash"
 
 
 def get_gemini_settings() -> GeminiSettings:
     return GeminiSettings(
         api_key=os.getenv("GEMINI_API_KEY"),
-        model=os.getenv("GEMINI_MODEL", "gemini-3.5-flash"),
+        model=os.getenv("GEMINI_MODEL", "gemini-2.0-flash"),
     )
 
 
@@ -28,12 +28,12 @@ def generate_text(prompt: str, context: str = "") -> str:
         return ""
 
     client = genai.Client(api_key=settings.api_key)
+    parts = [{"text": prompt}]
+    if context:
+        parts.append({"text": context})
     response = client.models.generate_content(
         model=settings.model,
-        contents=[
-            {"role": "user", "parts": [{"text": prompt}]},
-            {"role": "user", "parts": [{"text": context}]},
-        ],
+        contents=[{"role": "user", "parts": parts}],
     )
     return getattr(response, "text", "") or ""
 
